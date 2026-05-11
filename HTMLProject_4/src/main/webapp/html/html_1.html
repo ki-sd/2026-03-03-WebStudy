@@ -1,0 +1,193 @@
+<!-- 
+	   교재 정리 : 1장 웹 개요와 실습환경 구축
+	                       ---------
+	                       1. 브라우저: 크롬.파이어폭스
+	                       2. 웹서버: Apache
+	                                ------ 가능을 수행 Tomcat
+	                                Tomcat=WAS(Web Application Server)
+	                                => JSP를 번역해서 HTML로 변환
+	                       3. 편집기: 이클립스 / VSCode / WebStorm
+	                                        |VueJs   |React
+	                       4. 데이터베이스: 오라클 / MySQL / MariaDB
+	                       
+	             19p
+	               인터넷과 웹
+	               인터넷=통신망 / 웹=서비스(정보공유)
+	                          --------------- 문서 전송(HTML)
+	               시용은 브라우저에서 주로 사용(실행하는 언어=>ML)
+	               => HTML/XML
+	                       | 설계파일 => 문서형 데이터베이스
+	                       | SQL/IP/Username/Password
+	                       | MyBatis/Spring
+	                       | =>XML대체 (yml,annotation)
+	                                       |Spring-Boot
+	                                  |CI/CD
+	                                  
+		ML을 표준화: W3C => WWW
+		
+		23p
+		 웹표준 (WEB 2.0) => 동적 페이지 (JQuery,Ajax,VueJS,React)
+		 =>HTML: HTML5
+		 =>CSS: CSS3
+		 =>JavaScript: ES6.0	    
+		28p
+		 웹동작
+		 ----
+		 1)C/S구조 (Client/Server)
+		  => Server에서 지시한 내용을 화면에 출력
+		  => Client: 브라우저에서 요청(request)을 보냄
+		             ------- 주소창을 통해 요청
+		     ------------------------------------ Front => HTML/CSS/JavaScript
+		     Server: 요청을 받아 보낸후 응답                  
+		     ------------------------------------ Back  => Java/Oracle.
+		     
+		 2) HTML의 역할
+		   => 정적페이지(파일 => 페이지)
+		      => 데이터 변경 X
+		   => 동적페이지: JSP,PHP,ASP,DJango
+		                          ------- Python (AI)
+		                      ---- C#
+		              ---- Java
+		      |JS: Ajax,Vue,React
+		 3) 동작 방법
+		    => 인터프리터(한줄씩 읽어 출력) => 문법상 오류는 없음
+		       : 에러출력 없음(HTML문서를 브라우저에 올린다 => 태그 번역 => 화면출력)
+		 4) 웹서버에서 오류
+		    404: 파일명이 틀림
+		    500: 자바와 연동 => 자바오류
+		    403: 접근거부
+		    412/415/400: JSP와 연동중 오류
+		 5) HTML/CSS => Only화면UI => 기능X
+		    => 사용자 정의가 없음 => 이미 만들어져있음(응용X)
+		    => 표준화 (모든 개발자가 동일하게 사용)
+		    => 퍼블리셔 => 화면UI
+		    => 어떤모양/약간의 CSS변경
+		 6) HTML 태그 종류
+		    1. 여는 태그 / 닫는 태그
+		       <h1>내용</h1>
+		    2. 독립 태그
+		       <br>,<img>,<inpt>
+		           ------------- 속성값으로 출력
+		    3.
+		       <h1>내용</h1>
+		          -----
+		       <img src="출력할 이미지">
+		                -----------
+		    4. 형식
+		       <!DOCTYPE htm1>: 버전에 맞는 HTML 정의 문서를 읽어옴
+		       <html>
+		       	<head>
+		       	  <meta> : 한글 변환 => UTF-8 / EUC-KR
+		       	                      |리눅스 호환
+		       	  <script> : 자바스크립트 : 사용자요청을 처리 => 브라우저 안에서
+		       	  <style> : 화면UI (CSS)
+		       	  <link> : CSS파일 읽기
+		       	  <title> : 브라우저 제목
+		       	   => Head태그 안에는 설정파일들 : 화면출력하지않음
+		       	</head>
+		       	<body>
+		       	  => 태그 => 브라우저 출력하는 태그*993
+		       	</body>
+		       </html>
+		
+		51p => HTML 태그                        
+	        ML => MarkUp Language
+	        -- <> 태그 + 속성
+	        -- <img src="">
+	           ---- ------
+	           태그  속성
+	                -- 필요시에는 사용자정의 속성 가능
+	                -- JQuer.Ajax,VueJS,ReactJS
+	                -- 데이터 보관
+	           --- 사용자 정의가 없다 => 있는그대로 사용
+	        -- 태그/속성(4버전) => 대소문자 구분 X
+	        -- 5버전 : 소문자만 사용
+	     
+	     1. 내용물 갖고있는 태그
+	        <h1>내용</h1> => <h1>~<h6>
+	        <p>내용</p>, 목록(ul,ol,table,dl), 텍스트관련(b,i,font...)
+	     2. 내용이 없는 태그
+	        닫는 태그가 없는 경우(img,ibout,br,hr..)
+	        
+	     ------------------------------------------------------
+	     1. 태그의 종류
+	        1) 문자태그
+	           문자안에서 텍스트의 의미, 강조등을 표현
+	           => 글 콘텐츠 구성 (블로그, 기사, 설명문)
+	                                    ------ 상세보기
+	           => 중요도 전달(경고, 안내)
+	           => 검색 / 접근성
+	           => 보여주는것/의미전달
+	           => 주요태그
+	              <br> : 다음줄에 출력 => \n
+	              <p> : 단락을 나눠 사용
+	              <strong> : bold => 강조
+	              <h1>~<h6> : 제목 (h1,h3 주로 사용)
+	              <sup> : 윗첨자 => new
+	              <hr> : 구분선 => 라인선
+	              <pre> : 있는 그대로(원본대로) 출력 => 상세보기, 줄거리, 자소서
+	              ----- 스타일 적용 가능
+	              ----- <pre style="white-space:pre-wrap">
+	                    ---------------------------------
+	                    |화면 크기에 맞춰 자동 줄바꿈
+	           => 속성
+	              id,class => 원하는 태그를 찾을 수 있게 => 구분 (별칭같은거)
+	              모든 태그의 속성 : id, class, style
+	                            ---------- ------
+	                                       |태그만 CSS적용
+	                            |구분자:CSS,JS
+	                            |id: 중복이없는 구분자 => 각 파일에 한개 존재
+	                             => #
+	                             <a id="a"></a>   ==> #a
+	                             <a id="b"></a>   ==> #b
+	                             <a id="c"></a>   ==> #c
+	                            |class: 충복 가능한 구분자
+	                             => .
+	                             <a class="d"></a>
+	                             <a class="d"></a>
+	                             <a class="d"></a>
+	                             <a class="d"></a>
+	                             <a class="d"></a>
+	   
+
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#red{
+	background-color:red;
+}
+.green{
+	background-color:green;
+}
+#blue{
+	color:blue;
+}
+#yellow{
+	color:yellow;
+}
+a{
+	background-color: yellow;
+}
+</style>
+<!-- 
+	 내부 CSS : 파일 한개
+	 인라인 CSS : 태그 한개
+	 외부 CSS : 파일로 만듬 => 공통으로 적용
+ -->
+</head>
+<body>
+	<h1 id="red">Red</h1>
+	<h1 id="blue">Blue</h1>
+	<h1 class="green">Green</h1>
+	<h1 id="yellow">Yellow</h1>
+	<h1 class="green">Green</h1>
+	<a href="#" style="color:green">Hello HTML</a>
+	<!-- block 속성: 한줄 전체 차지 (println()) 
+	inline 속성: 글자 크기만큼 차지 (print()) -->
+	<hr style="color:blue;size:20px;">
+</body>
+</html>

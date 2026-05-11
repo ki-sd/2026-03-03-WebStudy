@@ -1,0 +1,107 @@
+<!-- 
+	 반응 선택자
+	   => hover (***)
+	               => mouseover
+	   => button / img / a / tr
+	   
+	   1. HTML
+	   2. HTML 태그 찾기 : 선택자
+	   3. CSS 속성
+	      => 텍스트 관련
+	      => Background 관련
+	      => 가시성
+	      => 박스모델 : 간격 조절 : margin / border / padding
+	      => 위치 속성 : 절대 / 상대 / 고정
+	      => 레이아웃
+	      => 반응형
+	      => GPT => CSS
+	   4. JavaScript => 동적
+	   5. JSP : 오라클 연동 ==> MyBatis / JPA
+	      => MVC
+	   6. SpringFramework
+	   7. Spring-Boot ==> JWT / WebSocket(Stormp)
+	   8. AWS, CI/CD
+	   ---------------------------
+	   NodeJS , React , VueJS
+	   
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	img{
+		width: 160px;
+		height: 250px;
+	}
+	img:hover {
+		opacity: 0.3;
+		cursor: pointer;
+		border: 3px solid green;
+	}
+	a{
+		display: block;
+		color: black;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #999;
+	}
+	
+	table>thead>tr{
+		background-color: orange;
+	}
+	table>tbody>tr:hover{
+		background-color: #FC9;
+	}
+	
+	/*
+		자손 / 후손 => table / div / span
+		 >    공백    
+	*/
+</style>
+</head>
+<body>
+	<img src="../images/m1.jpg">
+	<img src="../images/m2.jpg">
+	<img src="../images/m3.jpg">
+	<img src="../images/m4.jpg">
+	<img src="../images/m5.jpg">
+	<img src="../images/m6.jpg">
+	<img src="../images/m7.jpg">
+	<hr>
+	<a href="#">자바</a>
+	<a href="#">오라클</a>
+	<a href="#">HTML/CSS</a>
+	<a href="#">자바스크립트</a>
+	<a href="#">JSP</a>
+	<hr>
+	<table border="1" bordercolor= black width= "490">
+		<thead>
+			<tr>
+				<th>이름</th>
+				<th>주소</th>
+				<th>전화</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>홍길동</td>
+				<td>서울</td>
+				<td>1111-1111</td>
+			</tr>
+			<tr>
+				<td>홍길동</td>
+				<td>서울</td>
+				<td>1111-1111</td>
+			</tr>
+			<tr>
+				<td>홍길동</td>
+				<td>서울</td>
+				<td>1111-1111</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

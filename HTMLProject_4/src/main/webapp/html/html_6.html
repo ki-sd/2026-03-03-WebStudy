@@ -1,0 +1,63 @@
+<!-- 
+	권장 사항
+	<fieldset><legend><label>
+	<select> => 그룹
+	<figure><figcaption>
+	
+	<h1>,<h3>,<font>,<strong>,<br>,<hr>,<pre>
+	-----------------------------------------
+	<ul>,<table>
+	-----------------------------------------
+	<input>,<select>,<textarea>
+	------ type=text, button, password, submit, checkbox, radio, hidden, file
+	
+	<fieldset>, <legend>, <label>, <figure>, <figcaption>
+	<img>, <embed>, <a>
+ -->
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 98p -->
+	<select multiple="multiple">
+		<optgroup label="Back-End">
+			<option>Java</option>
+			<option>Oracle</option>
+			<option>JSP</option>
+			<option>Spring</option>
+			<option>Spring-Boot</option>
+		</optgroup>
+		<optgroup label="Front-End">
+			<option>HTML</option>
+			<option>CSS</option>
+			<option>JavaScript</option>
+			<option>VueJS</option>
+			<option>ReactJS</option>
+		</optgroup>
+		<optgroup label="SE">
+			<option>Git</option>
+			<option>Docker</option>
+			<option>쿠버네티스</option>
+			<option>AWS</option>
+			<option>Jenkins</option>
+		</optgroup>
+	</select>
+	<hr>
+	<!-- 99p -->
+	<fieldset><!-- 입력창 모아주기 -->
+		<legend>회원 정보</legend><!-- 구분자 -->
+		<label for=id>ID</label><!-- id명과 for명이 일치 => 한 세트 -->
+		<input type=text size=20 id=id><br>
+		<label for=name>Name</label>
+		<input type=text size=20 id=name>
+	</fieldset>
+	<hr>
+	<figure><!-- 이미지 + 설명 묶어주기 : 이미지카드-->
+		<img alt="" src="m1.jpg">
+		<figcaption>이미지에 대한 설명 시 사용</figcaption>
+	</figure>
+</body>
+</html>
