@@ -1,0 +1,94 @@
+<!-- 
+	오전: CSS / 오후: 화면출력 => JSP (제어문)
+	                        ----------- HTML
+	=> ID / Class가 없는 경우                        
+	   속성 선택자
+	   -------- <a>,<img>,<table>,<ul>,<ol>,<dl>
+	                      ---------------------- 구조 선택자
+	   태그명[속성=값] => 값이 동일
+	   태그명[속성*=값] => 값에 포함 => contains()
+	   태그명[속성^=값] => 시작값이 동일 => startsWith()
+	   태그명[속성$=값] => 끝값이 동일 => endsWith() 
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	input{
+		margin-top: 20px;
+	}
+	input[type="text"],input[type="password"]{
+		width: 200px;
+		height: 30px;
+	}
+	input[type$="e"],input[type="number"]{
+		width: 300px;
+		height: 30px;
+	}
+	input[type="submit"],input[type="button"]{
+		width: 100px;
+		height: 30px;
+		border-radius: 10px;
+	}
+	img{
+		width: 200px;
+		height: 200px;
+	}
+	img[src*="m1"],[src*="m2"]{
+		border-radius: 20px;
+	}
+	img[src*="m3"],[src*="m4"]{
+		border-radius: 50px;
+	}
+	img[src*="m5"]{
+		border-radius: 100px;
+	}
+	a{
+		display: block;
+		margin-top: 10px;
+	}
+	a[href^="aaa"]{
+		color: magenta;
+		text-decoration: none;
+	}
+	a[href^="bbb"]{
+		color: orange;
+		text-decoration: none;
+	}
+	a[href$="htm"]{
+		color: blue;
+		text-decoration: none;
+	}
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('img[src*="m2"]').click(function() {
+			alert("이미지 선택")
+		})
+	})
+</script>
+</head>
+<body>
+	<input type="text"><br>
+	<input type="password"><br>
+	<input type="file"><br>
+	<input type="range" min="1" max="100"><br>
+	<input type="number" min="1" max="100"><br>
+	<input type="date"><br>
+	<input type="submit" value="전송"><br>
+	<input type="button" value="취소"><br>
+	<img src="../images/m1.jpg">
+	<img src="../images/m2.jpg">
+	<img src="../images/m3.jpg">
+	<img src="../images/m4.jpg">
+	<img src="../images/m5.jpg">
+	<hr>
+	<a href="aaa.html">파일 이동</a>
+	<a href="aaa1.html">파일 이동</a>
+	<a href="bbb.html">파일 이동</a>
+	<a href="bbb.htm">파일 이동</a>
+</body>
+</html>

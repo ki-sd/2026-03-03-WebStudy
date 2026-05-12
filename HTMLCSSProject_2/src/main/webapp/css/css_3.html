@@ -1,0 +1,83 @@
+<!-- 
+	자손 선택자 : 태그 > 태그 > 태그 ...
+	후손 선택자 : 태그 태그 태그
+	동위 선택자 : 태그 + 태그 | 태그 ~ 태그
+	------------------ 크롤링
+	    
+    <div>
+     <p></p>
+     <h1></h1>
+     <h1></h1>
+     <span>
+       <h1></h1>
+     </span>
+    <div>
+    
+     DOM으로 표현 (트리형태)
+      
+       div 
+        |
+   --------------
+   |    |   |   |
+   p    h1  h1  span ===> 자손  div > p  , div > h1 , div > span 
+                 |
+                 h1 ===> 후손  div span h1 
+       ---  ---
+       p+h1 p~h1
+       --------- 동위 선택자 
+       => dt/dd , th/td  ==> 크롤링 
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.aaa > img {
+		border-radius: 50px;
+	}
+	.bbb > img {
+		border-radius: 20px;
+	}
+	.ccc > img {
+		border-radius: 100px;
+	}
+	div > p+h1{
+		background: rgb(252,17,137);
+		color: green;
+	}
+	div span h1{
+		background: #8FA8CC;
+	}
+	div > p~h1{
+		background: #CCCCFF;
+	}
+</style>
+</head>
+<body>
+	<div class="aaa">
+		<img src="../images/m1.jpg">
+	</div>
+	<div class="bbb">
+		<img src="../images/m2.jpg">
+	</div>
+	<div class="ccc">
+		<img src="../images/m3.jpg">
+	</div>
+	<div class="aaa">
+		<img src="../images/m4.jpg">
+	</div>
+	<div class="bbb">
+		<img src="../images/m5.jpg">
+	</div>
+	<hr>
+	<div>
+		<p>Hello CSS</p>
+		<h1>형제1</h1>
+		<h1>형제2</h1>
+		<span>
+			<h1>후손</h1>
+		</span>
+	</div>
+</body>
+</html>
