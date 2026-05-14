@@ -5,7 +5,7 @@
 <br>
 <br>
 
-* **Progress** : <img src="https://img.shields.io/badge/Progress-40%25-orange?style=flat-square" style="vertical-align: middle;">
+* **Progress** : <img src="https://img.shields.io/badge/Progress-60%25-yellow?style=flat-square" style="vertical-align: middle;">
 * **Language** : <img src="https://img.shields.io/badge/Java_21-ED8B00?style=flat-square&logo=openjdk&logoColor=white" style="vertical-align: middle;"> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" style="vertical-align: middle;"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/JSP-007396?style=flat-square&logo=java&logoColor=white" style="vertical-align: middle;">
 * **DataBase** : <img src="https://img.shields.io/badge/Oracle_21c-F80000?style=flat-square&logo=oracle&logoColor=white" style="vertical-align: middle;">
 * **IDE** : <img src="https://img.shields.io/badge/Eclipse-2C2255?style=flat-square&logo=eclipseide&logoColor=white" style="vertical-align: middle;"> <img src="https://img.shields.io/badge/VS_Code-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white" style="vertical-align: middle;"> <img src="https://img.shields.io/badge/SQL_Developer-F80000?style=flat-square&logo=oracle&logoColor=white" style="vertical-align: middle;"> <img src="https://img.shields.io/badge/DBeaver-382923?style=flat-square&logo=dbeaver&logoColor=white" style="vertical-align: middle;">
