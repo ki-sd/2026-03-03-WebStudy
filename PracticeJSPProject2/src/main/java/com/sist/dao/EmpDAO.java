@@ -93,23 +93,24 @@ public class EmpDAO {
 		}
 		return count;
 	}
-//	public void insertEmp(EmpVO vo) {
-//		try {
-//			getConnection();
-//			String sql="INSERT INTO Emp2(name,subject,content,pwd) "
-//					+ "VALUES(?,?,?,?)";
-//			ps=conn.prepareStatement(sql);
-//			ps.setString(1, vo.getEname());
-//			ps.setString(2, vo.getSubject());
-//			ps.setString(3, vo.getContent());
-//			ps.setString(4, vo.getPwd());
-//			ps.executeUpdate();
-//		}catch(Exception ex) {
-//			ex.printStackTrace();
-//		}finally {
-//			disConnection();
-//		}
-//	}
+	public void insertEmp(EmpVO vo) {
+		try {
+			getConnection();
+			String sql="INSERT INTO Emp2(ename,job,sal,deptno,isadmin) "
+					+ "VALUES(?,?,?,?,?)";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, vo.getEname());
+			ps.setString(2, vo.getJob());
+			ps.setInt(3, vo.getSal());
+			ps.setInt(4, vo.getDeptno());
+			ps.setString(5, vo.getIsadmin());
+			ps.executeUpdate();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			disConnection();
+		}
+	}
 //	public EmpVO EmpDetailData(int no) {
 //		EmpVO vo=new EmpVO();
 //		try {
