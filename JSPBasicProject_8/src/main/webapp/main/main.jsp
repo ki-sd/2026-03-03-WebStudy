@@ -1,3 +1,4 @@
+<%@page import="com.sist.jsp.jspChange"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%--
@@ -138,7 +139,39 @@
 	// 로그인 => 로그인 처리 => session에 사용자의 일부 정보를 서버에 저장
 	// 프로젝트 전체에서 공용으로 사용(전역변수)
 	// 데이터 유지 방법 => session/cookie
-	String pwd=(String)session.getAttribute("pwd");
+	/*
+		session의 주요 메서드
+		------- 브라우저별로 구분
+		1. 저장 => setAttribute(key,value)
+		                      key가 중복되면 덮어씀
+		          key => 문자열 / vlaue => Object
+		2. 읽기 => getAttribute(key)
+		3. 전체삭제 => invaidate() => 로그아웃
+		4. 개별삭제 => removeAttribute(key) => 장바구니
+		------------------------------------------
+		덮어쓰는 경우 : 회원 수정
+		5. getId() => 사용자별 구분 => webSocket
+		6. isNew() => 처음 저장된 상태인지
+		----> 서버에 저장 (보안이 좋다)
+	*/
+	/*
+		데이터 전송 받는 경우
+		=> 포함하고 있는 JSP에서 데이터 공유 => include
+		=> 나눠서 사용
+		=> main.jsp : mode => 화면 변경
+		=> *.jsp : 해당 데이터를 받아 화면 출력
+		
+		** request를 공유
+		   = include가 된 경우
+		   = forward가 된 경우
+		   
+		   <a> , <form> , sendRedirect => request 초기화
+	*/
+	String mode=request.getParameter("mode");
+	if(mode==null)
+		mode="1";
+	int index=Integer.parseInt(mode);
+	String jsp=jspChange.change(index);
 %>
 <!DOCTYPE html>
 <html>
@@ -148,8 +181,10 @@
 <style type="text/css">
 .login{
 	width: 960px;
+	margin-bottom: 20px;
 }
 </style>
+<link rel="stylesheet" href="../css/cookie.css">
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -160,21 +195,21 @@
 		%>
 			<form method="post" action="../member/login.jsp">
 				<div class="logform text-right">
-					ID:<input type=text name=id class="input-sm" size=15>
+					ID:<input type=text name=id class="input-sm" size=15 required>
 					&nbsp;
-					PW:<input type=password name=pwd class="input-sm" size=15>
+					PW:<input type=password name=pwd class="input-sm" size=15 required>
 					&nbsp;
-					<button class="btn-sm btc-primary">로그인</button>
+					<button class="btn-sm btn-primary">로그인</button>
 				</div>
 			</form>
 		<%
 			} else{
 		%>
-			<form method="post" action="../memeber/logout.jsp">
+			<form method="post" action="../member/logout.jsp">
 				<div class="logform text-right">
-				<%=session.getAttribute("name") %> 님 로그인 되었습니다
+				<%=session.getAttribute("name") %>(<%=((String)session.getAttribute("admin")).equals("y")?"관리자":"일반회원" %>) 님 로그인 되었습니다
 				&nbsp;
-					<button class="btn-sm btc-primary">로그아웃</button>
+					<button class="btn-sm btn-primary">로그아웃</button>
 				</div>
 			</form>
 		<%
@@ -182,5 +217,6 @@
 		%>
 		</div>
 	</div>
+	<jsp:include page="<%=jsp %>"></jsp:include>
 </body>
 </html>
