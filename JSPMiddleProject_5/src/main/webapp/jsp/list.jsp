@@ -41,7 +41,12 @@
 								</c:forEach>
 								<img src="re_icon.png">
 							</c:if>
-							<a href="detail.jsp?no=${vo.no }" style="text-decoration: none; color: black;">${vo.subject }</a>
+							<c:if test="${vo.subject!=msg }">
+								<a href="detail.jsp?no=${vo.no }" style="text-decoration: none; color: black;">${vo.subject }</a>
+							</c:if>
+							<c:if test="${vo.subject==msg }">
+								<span style="color:gray">${vo.subject }</span>
+							</c:if>
 							<c:if test="${vo.dbday==today }">
 								&nbsp;<sup><img src="new.gif"></sup>
 							</c:if>
@@ -65,9 +70,9 @@
 						<button class="btn-sm btn-primary">검색</button>
 					</td>
 					<td class="text-right">
-						<a href="#" class="btn btn-sm btn-warning">&laquo;</a>
+						<a href="list.jsp?page=${curpage>1?curpage-1:curpage }" class="btn btn-sm btn-warning">&laquo;</a>
 						${curpage } page / ${totalpage } pages
-						<a href="#" class="btn btn-sm btn-warning">&raquo;</a>
+						<a href="list.jsp?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm btn-warning">&raquo;</a>
 					</td>
 				</tr>
 			</table>
