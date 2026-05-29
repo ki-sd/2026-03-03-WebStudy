@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.io.*;
 import com.sist.dao.*;
 /*
  *     Controller  :  처리된 데이터 JSP 전송 : Servlet
@@ -30,10 +31,101 @@ public class BoardModel {
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 	}
-	public void boardInsert(HttpServletRequest request,HttpServletResponse response) {
-		BoardDAO dao=BoardDAO.newInstance();
-		BoardVO vo=new BoardVO();
+	public void boardInsert(HttpServletRequest request,
+			HttpServletResponse response)
+	{
+		// => 화면 이동(response) => 다시 list.jsp로 이동
+		String name=request.getParameter("name");
+		String subject=request.getParameter("subject");
+		String content=request.getParameter("content");
+		String pwd=request.getParameter("pwd");
 		
-		dao.boardInsertData(vo);
+		BoardVO vo=new BoardVO();
+		vo.setName(name);
+		vo.setSubject(subject);
+		vo.setContent(content);
+		vo.setPwd(pwd);
+		
+		BoardDAO dao=BoardDAO.newInstance();
+		dao.boardInsert(vo);
+		// 오라클 데이터 추가 완료 
+		// 화면 이동 
+		try
+		{
+		   response.sendRedirect("list.jsp");
+		}catch(Exception ex) {}
+	}
+	
+	public void boardDetail(HttpServletRequest request)
+	{
+		String no=request.getParameter("no");
+		BoardDAO dao=BoardDAO.newInstance();
+		BoardVO vo=dao.baordDetail(Integer.parseInt(no));
+		
+		// JSP로 전송 
+		request.setAttribute("vo", vo); // detail.jsp
+	}
+	
+	// 수정 데이터 읽기
+	public void boardUpdateData(HttpServletRequest request)
+	{
+		String no=request.getParameter("no");
+		BoardDAO dao=BoardDAO.newInstance();
+		BoardVO vo=dao.baordUpdateData(Integer.parseInt(no));
+		
+		// JSP 전송 
+		request.setAttribute("vo", vo);
+	}
+	
+	// 실제 수정 
+	public void boardUpdate(HttpServletRequest request,
+			HttpServletResponse response)
+	{
+		String name=request.getParameter("name");
+		String subject=request.getParameter("subject");
+		String content=request.getParameter("content");
+		String pwd=request.getParameter("pwd");
+		String no=request.getParameter("no");//hidden
+		System.out.println("pwd:"+pwd);
+		System.out.println("no:"+no);
+		BoardVO vo=new BoardVO();
+		vo.setName(name);
+		vo.setSubject(subject);
+		vo.setContent(content);
+		vo.setPwd(pwd);
+		vo.setNo(Integer.parseInt(no));
+		
+		BoardDAO dao=BoardDAO.newInstance();
+		boolean bCheck=dao.boardUpdate(vo);
+		
+	  try
+	  {
+		    response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			if(bCheck==true)
+			{
+				out.write("yes");
+			}
+			else
+			{
+				out.write("no");
+			}
+			/*if(bCheck==true) // 비밀번호가 맞아서 수정 
+			{
+			   
+				response.sendRedirect("detail.jsp?no="+no);
+			}
+			else
+			{
+				
+				response.setContentType("text/html;charset=UTF-8");
+				PrintWriter out=response.getWriter();
+				out.write("<script>");
+				out.write("alert(\"비밀번호가 틀립니다!!\");");
+				out.write("history.back();");
+				out.write("</script>");
+			}*/
+		    
+	  }catch(Exception ex){}
 	}
 }

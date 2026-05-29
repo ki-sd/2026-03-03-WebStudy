@@ -41,7 +41,7 @@
 								</c:forEach>
 								<img src="re_icon.png">
 							</c:if>
-							<a href="#" style="text-decoration: none; color: black;">${vo.subject }</a>
+							<a href="detail.jsp?no=${vo.no }" style="text-decoration: none; color: black;">${vo.subject }</a>
 							<c:if test="${vo.dbday==today }">
 								&nbsp;<sup><img src="new.gif"></sup>
 							</c:if>
