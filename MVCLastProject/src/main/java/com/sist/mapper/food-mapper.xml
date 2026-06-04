@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.food-mapper">
+	<!-- id / resultType / parameterType / resultMap
+	                                       | 원하는 방식으로 값을 채운다 (JOIN)
+	                       | ?에 들어갈 매개변수
+	          | 값을 저장하는 데이터
+	     |구분자 = 중복X
+	 -->
+	<!-- 
+	private int fno,hit;
+	private String name,type,phone,address,theme,poster,images,time,parking,content,price;
+	private double score; 
+	-->
+	<select id="foodListData" resultType="FoodVO" parameterType="int">
+		SELECT fno,name,address,poster
+		FROM food
+		ORDER BY fno
+		OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+	<select id="foodTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM food
+	</select>
+	<select id="foodDetailData" resultType="FoodVO" parameterType="int">
+		SELECT fno,name,address,poster,type,phone,theme,time,parking,content,price,score,hit
+		FROM food
+		WHERE fno=#{fno}
+	</select>
+</mapper>
