@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.emp-mapper">
+	<resultMap type="com.sist.dao.EmpVO" id="empMap">
+<!--	<result property="empno" column="empno"/>
+		<result property="ename" column="ename"/>
+		<result property="job" column="job"/>
+		<result property="hiredate" column="hiredate"/>
+		<result property="dbday" column="dbday"/>
+		<result property="sal" column="sal"/> 				
+		<association property="dvo" javaType="DeptVO">
+			<result property="dname" column="dname"/>
+			<result property="loc" column="loc"/>
+		</association>									-->
+		<result property="dvo.dname" column="dname"/>
+		<result property="dvo.loc" column="loc"/>
+	</resultMap>
+	
+	<select id="empListData" resultMap="empMap">
+		SELECT empno,ename,job,sal,TO_CHAR(hiredate,'yyyy-mm-dd') AS dbday,dname,loc
+		FROM emp JOIN dept
+		ON emp.deptno=dept.deptno
+		ORDER BY empno
+	</select>
+</mapper>
