@@ -8,6 +8,7 @@
 		<typeAlias type="com.sist.vo.FoodVO" alias="FoodVO"/>
 		<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.sist.vo.ReplyVO" alias="ReplyVO"/>
+		<typeAlias type="com.sist.vo.EmpVO" alias="EmpVO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -24,5 +25,6 @@
 		<mapper resource="com/sist/mapper/food-mapper.xml"/>
 		<mapper resource="com/sist/mapper/member-mapper.xml"/>
 		<mapper resource="com/sist/mapper/reply-mapper.xml"/>
+		<mapper resource="com/sist/mapper/emp-mapper.xml"/>
 	</mappers>
 </configuration>

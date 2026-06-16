@@ -38,4 +38,19 @@ public class ReplyDAO {
 		session.insert("replyInsert",vo);
 		session.close();
 	}
+//	<update id="replyUpdate" parameterType="hashmap">
+//	UPDATE reply SET
+//	msg=#{msg}
+//	WHERE no=#{no}
+//	</update>
+	public static void replyUpdate(Map map) {
+		SqlSession session=ssf.openSession(true);
+		session.update("replyUpdate",map);
+		session.close();
+	}
+	public static void replyDelete(int no) {
+		SqlSession session=ssf.openSession(true);
+		session.delete("replyDelete",no);
+		session.close();
+	}
 }
