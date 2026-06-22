@@ -46,4 +46,16 @@ public class FoodDAO {
 		session.close();
 		return list;
 	}
+//	<select id="foodCategoryData" resultType="FoodVO" parameterType="string">
+//	SELECT fno,name,poster
+//	FROM food
+//	WHERE type LIKE '%'||#{type}||'%'
+//	ORDER BY fno ASC
+//	</select>
+	public static List<FoodVO> foodCategoryData(String type){
+		SqlSession session=ssf.openSession();
+		List<FoodVO> list=session.selectList("foodCategoryData",type);
+		session.close();
+		return list;
+	}
 }
