@@ -16,4 +16,16 @@
 		FROM food
 		WHERE fno=#{fno}
 	</select>
+	<select id="foodFindListData" resultType="FoodVO" parameterType="hashmap">
+		SELECT fno,name,poster,address
+		FROM food
+		WHERE ${column} LIKE '%'||#{ss}||'%'
+		ORDER BY fno ASC
+		OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+	<select id="foodFindTotalPage" resultType="int" parameterType="hashmap">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM food
+		WHERE ${column} LIKE '%'||#{ss}||'%'
+	</select>
 </mapper>
