@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.board-mapper">
+	<select id="boardListData" resultType="BoardVO" parameterType="int">
+		SELECT no,name,subject,TO_CHAR(regdate,'yyyy-mm-dd') AS dbday,hit
+		FROM jspboard
+		ORDER BY no DESC
+		OFFSET #{start} ROWS FETCH NEXT 10 ROWS ONLY
+	</select>
+	<select id="boardRowCount" resultType="int">
+		SELECT COUNT(*)
+		FROM jspboard
+	</select>
+	<insert id="boardInsert" parameterType="BoardVO">
+		INSERT INTO jspboard VALUES(
+			DEFAULT,#{name},#{subject},#{content},#{pwd},SYSDATE,0
+		)
+	</insert>
+	<update id="hitIncrement" parameterType="int">
+		UPDATE jspboard SET
+		hit=hit+1
+		WHERE no=#{no}
+	</update>
+	<select id="boardDetailData" resultType="BoardVO" parameterType="int">
+		SELECT no,name,subject,content,TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') AS dbday,hit
+		FROM jspboard
+		WHERE no=#{no}
+	</select>
+</mapper>
