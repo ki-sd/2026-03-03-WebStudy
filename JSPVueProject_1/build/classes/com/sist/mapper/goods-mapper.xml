@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.goods-mapper">
+	<resultMap type="GoodsVO" id="goodsMap" autoMapping="true">
+		<result property="name" column="goods_name"/>
+		<result property="sub" column="goods_sub"/>
+		<result property="price" column="goods_price"/>
+		<result property="discount" column="goods_discount"/>
+		<result property="fPrice" column="goods_first_price"/>
+		<result property="delivery" column="goods_delivery"/>
+		<result property="poster" column="goods_poster"/>
+	</resultMap>
+	<select id="goodsListData" resultMap="goodsMap" parameterType="int">
+		SELECT no,goods_name,goods_poster,goods_price
+		FROM goods_all
+		ORDER BY no ASC
+		OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+	<select id="goodsTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/12.0)
+		FROM goods_all
+	</select>
+</mapper>
