@@ -6,4 +6,7 @@ public interface BoardService {
 	public int boardRowCount();
 	public void boardInsert(BoardVO vo);
 	public BoardVO boardDetailData(int no);
+	public boolean boardDelete(int no,String pwd);
+	public BoardVO boardUpdateDetail(int no);
+	public boolean boardUpdate(BoardVO vo);
 }

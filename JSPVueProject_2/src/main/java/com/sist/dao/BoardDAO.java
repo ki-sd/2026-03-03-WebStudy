@@ -41,4 +41,28 @@ public class BoardDAO {
 		session.close();
 		return vo;
 	}
+	public String getPassword(int no) {
+		SqlSession session=ssf.openSession();
+		String dbPwd=session.selectOne("boardGetPassword",no);
+		session.close();
+		return dbPwd;
+	}
+	public void boardDelete(int no) {
+		SqlSession session=ssf.openSession();
+		session.delete("boardDelete",no);
+		session.commit();
+		session.close();
+	}
+	public BoardVO boardUpdateDetail(int no) {
+		SqlSession session=ssf.openSession();
+		BoardVO vo=session.selectOne("boardDetailData",no);
+		session.close();
+		return vo;
+	}
+	public void boardUpdate(BoardVO vo) {
+		SqlSession session=ssf.openSession();
+		session.update("boardUpdate",vo);
+		session.commit();
+		session.close();
+	}
 }

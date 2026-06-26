@@ -73,17 +73,9 @@ public class BoardModel {
 		int no=Integer.parseInt(strno);
 		BoardVO vo=service.boardDetailData(no);
 		
-		Map<String,Object> map=new HashMap<String, Object>();
-		map.put("no", no);
-		map.put("name", vo.getName());
-		map.put("subject", vo.getSubject());
-		map.put("content", vo.getContent());
-		map.put("hit", vo.getHit());
-		map.put("dbday", vo.getDbday());
-		
 		try {
 			ObjectMapper mapper=new ObjectMapper();
-			String json=mapper.writeValueAsString(map);
+			String json=mapper.writeValueAsString(vo);
 			
 			response.setContentType("text/plain;charset=UTF-8");
 			PrintWriter out=response.getWriter();
@@ -92,4 +84,72 @@ public class BoardModel {
 			ex.printStackTrace();
 		}
 	}
+	@RequestMapping("board/delete_vue.do")
+	public void board_delete_vue(HttpServletRequest request,HttpServletResponse response) {
+		String strNo=request.getParameter("no");
+		int no=Integer.parseInt(strNo);
+		String pwd=request.getParameter("pwd");
+		boolean bCheck=service.boardDelete(no, pwd);
+		String msg="";
+		if(bCheck==true) {
+			msg="yes";
+		}else {
+			msg="no";
+		}
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.write(msg);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	@RequestMapping("board/update.do")
+	public String board_update(HttpServletRequest request,HttpServletResponse response) {
+		return "../board/update.jsp";
+	}
+	@RequestMapping("board/update_vue.do")
+	public void board_update_vue(HttpServletRequest request,HttpServletResponse response) {
+		String strNo=request.getParameter("no");
+		int no=Integer.parseInt(strNo);
+		BoardVO vo=service.boardUpdateDetail(no);
+		try {
+			ObjectMapper mapper=new ObjectMapper();
+			String json=mapper.writeValueAsString(vo);
+			
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.write(json);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	@RequestMapping("board/update_ok.do")
+	public void board_update_ok(HttpServletRequest request,HttpServletResponse response) {
+		String strno=request.getParameter("no");
+		int no=Integer.parseInt(strno);
+		String name=request.getParameter("name");
+		String subject=request.getParameter("subject");
+		String content=request.getParameter("content");
+		String pwd=request.getParameter("pwd");
+		
+		BoardVO vo=new BoardVO();
+		vo.setNo(no);
+		vo.setName(name);
+		vo.setSubject(subject);
+		vo.setContent(content);
+		vo.setPwd(pwd);
+		boolean bCheck=service.boardUpdate(vo);
+		String msg="no";
+		if(bCheck==true) {
+			msg="yes";
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.write(msg);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+}
 }

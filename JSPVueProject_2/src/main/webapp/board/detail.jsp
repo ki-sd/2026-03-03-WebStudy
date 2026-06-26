@@ -44,32 +44,32 @@ textarea{
 				<tbody>
 					<tr>
 						<th class="text-center success" width="20%">번호</th>
-						<td width="35%">{{no}}</td>
+						<td width="35%">{{detail.no}}</td>
 						<th class="text-center success" width="15%">등록일</th>
-						<td width="35%">{{dbday}}</td>
+						<td width="35%">{{detail.dbday}}</td>
 					</tr>
 					
 					<tr>
 						<th class="text-center success">이름</th>
-						<td>{{name}}</td>
+						<td>{{detail.name}}</td>
 						<th class="text-center success">조회수</th>
-						<td>{{hit}}</td>
+						<td>{{detail.hit}}</td>
 					</tr>
 					<tr>
-            			<th width=20% class="danger text-center">제목</th>
-           				<td colspan="3">{{subject}}</td>
+            			<th width=20% class="success text-center">제목</th>
+           				<td colspan="3">{{detail.subject}}</td>
           			</tr>
 					<tr>
 						<th class="text-center success" style="vertical-align: middle;">내용</th>
 						<td colspan="4">
-							<textarea rows="10" ref="contRef" v-model="content" 
+							<textarea rows="10" ref="contRef" v-model="detail.content" 
 							          class="form-control" draggable="false" readonly="readonly" 
 							          style="background-color: #fff; resize: none;"></textarea>
 						</td>
 					</tr>
 					<tr>
             			<td colspan="4" class="text-right">
-             				<a href="#" class="btn btn-xs btn-warning">수정</a>
+             				<a :href="'../board/update.do?no='+no" class="btn btn-xs btn-warning">수정</a>
              				<a class="btn btn-xs btn-warning a-link"
               					@click="btnClick()">{{isOn?'삭제':'취소'}}</a>
              				<a href="../board/list.do" class="btn btn-xs btn-warning">목록</a>
@@ -97,14 +97,10 @@ textarea{
 			return{
 				bShow:false,
 				no:${param.no},
+				isOn:true,
 				msg:'삭제',
 				pwd:'',
-				detail:{},
-				name:'',
-				subject:'',
-				content:'',
-				hit:'',
-				dbday:''
+				detail:{}
 			}
 		},
 		mounted(){
@@ -117,12 +113,8 @@ textarea{
 						no:this.no
 					}
 				}).then(response=>{
-					console.log(response.data)
-					this.name=response.data.name
-					this.subject=response.data.subject
-					this.content=response.data.content
-					this.hit=response.data.hit
-					this.dbday=response.data.dbday
+//					console.log(response.data)
+					this.detail=response.data
 				})
 			},
 			btnClick(){
@@ -132,6 +124,7 @@ textarea{
 			del(){
 				if(this.pwd.trim()===""){
 					this.$refs.pwdRef.focus()
+					// 태그 자체 제어 => ref 사용
 					return
 				}
 				axios.get('../board/delete_vue.do',{
