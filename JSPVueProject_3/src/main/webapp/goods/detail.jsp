@@ -77,7 +77,7 @@ textarea{
 	</div>
 	<script>
 	var IMP = window.IMP; 
-	IMP.init("imp15081324")
+	IMP.init("")
 	const detail=Vue.createApp({
 		data(){
 			return{
