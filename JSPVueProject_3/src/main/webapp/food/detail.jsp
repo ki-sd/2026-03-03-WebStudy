@@ -36,42 +36,60 @@ textarea{
 </style>
 <script type="text/javascript" src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
-	<div class="container" id="detailApp">
+	<div class="container" id="foodDetailApp">
 		<div class="panel panel-success product-card">
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-sm-6 text-center">
-						<img :src="vo.goods_poster" class="img-responsive img-thumbnail" style="width: 100%;max-width: 350px;">
-					</div>
-					<div class="col-sm-6">
-						<h3>{{vo.goods_name}}</h3>
-						<p class="text-muted">
-							{{vo.goods_sub}}
-						</p>
-						<hr>
-						<table class="table">
+					<table class="table">
+						<tbody>
 							<tr>
-								<th width="15%">가격</th>
-								<td width="85%">{{vo.goods_price}}</td>
+								<td class="text-center" width="30%" rowspan="8">
+									<img :src="vo.poster" style="width: 100%">
+								</td>
+								<td colspan="2"><h3>{{vo.name}}&nbsp;<span style="color: orange">{{vo.score}}</span></h3></td>
 							</tr>
 							<tr>
-								<th width="15%">특가</th>
-								<td width="85%">{{vo.goods_discount}}%</td>
+								<td width="20%">주소</td>
+								<td width="50%">{{vo.address}}</td>
 							</tr>
 							<tr>
-								<th width="15%">배송</th>
-								<td width="85%">{{vo.goods_delivery}}</td>
+								<td width="20%">전화</td>
+								<td width="50%">{{vo.phone}}</td>
 							</tr>
-						</table>
-						<div class="form-inline">
-							<button class="btn btn-primary">장바구니</button>
-							<button class="btn btn-danger" @click="buyBtn()">바로구매</button>
-							<button class="btn btn-success" @click="go">목록</button>
-						</div>
-					</div>
+							<tr>
+								<td width="20%">음식종류</td>
+								<td width="50%">{{vo.type}}</td>
+							</tr>
+							<tr>
+								<td width="20%">주차</td>
+								<td width="50%">{{vo.parking}}</td>
+							</tr>
+							<tr>
+								<td width="20%">가격대</td>
+								<td width="50%">{{vo.price}}</td>
+							</tr>
+							<tr>
+								<td width="20%">영업시간</td>
+								<td width="50%">{{vo.time}}</td>
+							</tr>
+							<tr>
+								<td colspan="3">{{vo.theme}}</td>
+							</tr>
+							<tr>
+								<td colspan="3">{{vo.content}}</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="text-right">
+									<button type="button" class="btn-xs btn-danger" v-if="loginId">좋아요</button>
+									<button type="button" class="btn-xs btn-success" v-if="loginId">찜하기</button>
+									<button type="button" class="btn-xs btn-info" v-if="loginId">예약하기</button>
+									<button type="button" class="btn-xs btn-primary" @click="go()">목록</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -93,7 +111,7 @@ textarea{
 										<td class="text-left" width="80%">◑{{rvo.name}} ({{rvo.dbday}})</td>
 										<td class="text-right" width="20%">
 											<button class="btn-xs btn-success" v-if="rvo.id===loginId" @click="toggle(rvo)">{{rvo.show?"취소":"수정"}}</button>
-											<button class="btn-xs btn-danger" v-if="rvo.id===loginId" @click="deleteReply(rvo.no)">삭제</button>
+											<button class="btn-xs btn-danger" v-if="rvo.id===loginId" @click="deleteReply(rvo.no)" style="margin-left: 2px">삭제</button>
 										</td>
 									</tr>
 									<tr>
@@ -124,78 +142,41 @@ textarea{
 		</div>
 	</div>
 	<script>
-	var IMP = window.IMP; 
-	IMP.init("")
-	const detail=Vue.createApp({
+	const detailApp=Vue.createApp({
 		data(){
 			return{
-				vo:{},
 				no:${no},
 				cno:${cno},
+				vo:{},
 				replyList:[],
 				msg:'',
 				loginId:'${sessionScope.id}'
 			}
 		},
 		mounted(){
-			axios.get('../goods/detail_vue.do',{
-				params:{
-					no:this.no
-				}
-			}).then(response=>{
-				console.log(response)
-				this.vo=response.data
-				
-			})
+			this.dataRecv()
 			
-			axios.get('../reply/list_vue.do',{
-				params:{
-					cno:this.cno,
-					rno:this.no
-				}
-			}).then(response=>{
-				this.replyList=response.data
-				console.log(response.data)
-			})
 		},
-		/*
-			BOM / DOM
-			 |
-			window : 브라우저 = 외곽 담당(메뉴,상태바,주소창)
-			    = open / close
-			    |
-			--------------------------
-			|       |        |       |
-	     document  location  history  screen
-	     
-	     					 back()/forward()
-	     (HTML화면)  href:화면이동
-		*/
 		methods:{
+			async dataRecv(){
+				await axios.get('../food/detail_vue.do',{
+					params:{
+						no:this.no
+					}
+				}).then(response=>{
+					this.vo=response.data
+				})
+				await axios.get('../reply/list_vue.do',{
+					params:{
+						cno:this.cno,
+						rno:this.no
+					}
+				}).then(response=>{
+					this.replyList=response.data
+				})
+			},
 			go(){
 				window.history.back()
-			},
-			buyBtn(){
-				this.requestPay(this.vo.goods_name,this.vo.price)
-			},
-			requestPay(name,price) {
-			    IMP.request_pay({
-			        pg: "html5_inicis",
-			        pay_method: "card",
-			        merchant_uid: "ORD20180131-0000011",   // 주문번호
-			        name: name,
-			        amount: price,         // 숫자 타입
-			        buyer_email: '',
-			        buyer_name: '',
-			        buyer_tel: '',
-			        buyer_addr: '',
-			        buyer_postcode: '' 
-			    }, function (rsp) { // callback
-			    	
-			    	alert("구매가 완료되었습니다.\n마이페이지에서 확인하세요")
-			    	//window.location.href="../mypage/buy_list.do"
-			    	//parent.Shadowbox.close()
-			   });
 			},
 			insert(){
 				axios.get('../reply/insert_vue.do',{
@@ -208,6 +189,7 @@ textarea{
 					this.replyList=response.data
 					this.msg=''
 				})
+				
 			},
 			deleteReply(no){
 				axios.get('../reply/delete_vue.do',{
@@ -240,8 +222,9 @@ textarea{
 					this.replyList=response.data
 				})
 			}
+			
 		}
-	}).mount('#detailApp')
+	}).mount('#foodDetailApp')
 	</script>
 </body>
 </html>

@@ -15,6 +15,6 @@ import lombok.Data;
 //REGDATE                                            DATE
 @Data
 public class MemberVO {
-	private String id,pwd,name,sex,post,addr1,addr2,phone,content,isadmin,msg,dbday;
+	private String id,pwd,name,sex,post,addr1,addr2,phone,content,isAdmin,msg,dbday;
 	private Date regdate;
 }

@@ -22,7 +22,7 @@ public class MemberDAO {
 				vo.setMsg("OK");
 				vo.setId(dbVO.getId());
 				vo.setName(dbVO.getName());
-				vo.setIsadmin(dbVO.getIsadmin());
+				vo.setIsAdmin(dbVO.getIsAdmin());
 			}else {
 				vo.setMsg("NOPWD");
 			}

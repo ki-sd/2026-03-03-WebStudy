@@ -1,5 +1,6 @@
 package com.sist.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.commons.Commons;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
@@ -10,6 +11,7 @@ import com.sist.vo.MemberVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 
 @Controller
 public class MemberModel {
@@ -23,12 +25,19 @@ public class MemberModel {
 			HttpSession session=request.getSession();
 			session.setAttribute("id", vo.getId());
 			session.setAttribute("name", vo.getName());
-			session.setAttribute("isAdmin", vo.getIsadmin());
+			session.setAttribute("isAdmin", vo.getIsAdmin());
 		}
-		Commons.sendData(response, "text/html", vo.getMsg());
+		try {
+//			ObjectMapper mapper=new ObjectMapper();
+//			String json=mapper.writeValueAsString(vo);
+			Commons.sendData(response, "text/html", vo.getMsg());
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 	@RequestMapping("member/logout.do")
 	public void member_logout(HttpServletRequest request,HttpServletResponse response) {
-		
+		HttpSession session=request.getSession();
+		session.invalidate();
 	}
 }
