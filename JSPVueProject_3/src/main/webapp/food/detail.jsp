@@ -93,8 +93,16 @@ textarea{
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-success" style="margin-top: 20px">
+			<div class="panel panel-success" style="margin-top: 20px">
+				<div class="panel-body">
+					<script src="../commons/replycard.js"></script>
+					<replycard :cno="cno" :rno="no" :login-id="loginId">
+					</replycard>
+				</div>
+			</div>
+		<!-- <div class="panel panel-success" style="margin-top: 20px">
 			<div class="panel-body">
+				<script src="replycard.js"></script>
 				<div class="row">
 					<table class="table" v-if="replyList.length===0">
 						<tr>
@@ -139,7 +147,7 @@ textarea{
 					</table>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<script>
 	const detailApp=Vue.createApp({
@@ -155,74 +163,25 @@ textarea{
 		},
 		mounted(){
 			this.dataRecv()
-			
 		},
 		methods:{
-			async dataRecv(){
-				await axios.get('../food/detail_vue.do',{
+			dataRecv(){
+				axios.get('../food/detail_vue.do',{
 					params:{
 						no:this.no
 					}
 				}).then(response=>{
+					console.log(response)
 					this.vo=response.data
-				})
-				await axios.get('../reply/list_vue.do',{
-					params:{
-						cno:this.cno,
-						rno:this.no
-					}
-				}).then(response=>{
-					this.replyList=response.data
+					
 				})
 			},
 			go(){
 				window.history.back()
-			},
-			insert(){
-				axios.get('../reply/insert_vue.do',{
-					params:{
-						cno:this.cno,
-						rno:this.no,
-						msg:this.msg
-					}
-				}).then(response=>{
-					this.replyList=response.data
-					this.msg=''
-				})
-				
-			},
-			deleteReply(no){
-				axios.get('../reply/delete_vue.do',{
-					params:{
-						cno:this.cno,
-						rno:this.no,
-						no:no
-					}
-				}).then(response=>{
-					this.replyList=response.data
-				})
-			},
-			toggle(rvo){
-				this.replyList.forEach(r=>{
-					if(r.no!=rvo.no){
-						r.show=false
-					}
-				})
-				rvo.show=!rvo.show
-			},
-			update(rvo){
-				axios.post('../reply/update_vue.do',{},{
-					params:{
-						no:rvo.no,
-						cno:rvo.cno,
-						rno:rvo.rno,
-						msg:rvo.umsg
-					}
-				}).then(response=>{
-					this.replyList=response.data
-				})
 			}
-			
+		},
+		components:{
+			replycard:replyComponent
 		}
 	}).mount('#foodDetailApp')
 	</script>
