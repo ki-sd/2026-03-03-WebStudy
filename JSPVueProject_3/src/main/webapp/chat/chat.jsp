@@ -69,7 +69,7 @@ window.onload=(e)=>{
 	connection()
 }
 const connection=()=>{
-	websocket=new WebSocket("ws://"+window.location.host+"/JSPVueProject_3/chat")
+	websocket=new WebSocket("ws://192.168.56.104/JSPVueProject_3/chat")
 	websocket.onopen=onOpen
 	websocket.onclose=onClose
 	websocket.onmessage=onMessage

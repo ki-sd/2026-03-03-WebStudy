@@ -24,7 +24,8 @@
       			<li><a href="../food/list.do">맛집</a></li>
       			<c:if test="${sessionScope.id!=null }">
 	      			<li><a href="../chat/chat.do">채팅</a></li>
-	      			<li><a href="../news/find.do">실시간 뉴스</a></li>
+	      			<li><a href="../news/find.do">뉴스 검색</a></li>
+	      			<li><a href="../news/news.do">실시간 뉴스</a></li>
       			</c:if>
       			<c:if test="${sessionScope.id!=null && sessionScope.isAdmin=='n'}">
       				<li><a href="../mypage/mypage_main.do">마이페이지</a></li>
