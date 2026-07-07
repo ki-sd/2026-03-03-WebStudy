@@ -16,4 +16,9 @@
 		FROM food
 		WHERE no=#{no}
 	</select>
+	<update id="foodHitIncrement" parameterType="int">
+		UPDATE food SET
+		hit=hit+1
+		WHERE no=#{no}
+	</update>
 </mapper>

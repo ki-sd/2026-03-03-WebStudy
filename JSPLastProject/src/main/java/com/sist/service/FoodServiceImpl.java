@@ -19,7 +19,9 @@ public class FoodServiceImpl implements FoodService {
 
 	@Override
 	public FoodVO foodDetailData(int no) {
+		dao.foodHitIncrement(no);
 		return dao.foodDetailData(no);
+		
 	}
 
 }

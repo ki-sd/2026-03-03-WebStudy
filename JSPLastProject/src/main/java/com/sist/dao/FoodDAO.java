@@ -46,10 +46,24 @@ public class FoodDAO {
 //	FROM food
 //	WHERE no=#{no}
 //	</select>
+//	<update id="foodHitIncrement" parameterType="int">
+//	UPDATE food SET
+//	hit=hit+1
+//	WHERE no=#{no}
+//</update>
+	public void foodHitIncrement(int no) {
+		try(SqlSession session=ssf.openSession()){
+			session.update("foodHitIncrement",no);
+			session.commit();
+			session.close();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 	public FoodVO foodDetailData(int no) {
 		FoodVO vo=new FoodVO();
 		try(SqlSession session=ssf.openSession()){
-			vo=session.selectOne("foodDetailData");
+			vo=session.selectOne("foodDetailData",no);
 			session.close();
 		}catch(Exception ex) {
 			ex.printStackTrace();
