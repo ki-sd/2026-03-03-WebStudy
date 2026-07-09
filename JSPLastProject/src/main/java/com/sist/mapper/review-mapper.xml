@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.review-mapper">
-	
+	<select id="reviewListData" resultType="ReviewVO" parameterType="int">
+		SELECT no,fno,id,name,msg,TO_CHAR(regdate,'yyyy-mm-dd') AS dbday
+		FROM foodreview
+		WHERE fno=#{fno}
+		ORDER BY no DESC
+	</select>
+	<insert id="insertReview" parameterType="ReviewVO">
+		INSERT INTO foodreview(fno,id,name,msg) VALUES
+		(#{fno},#{id},#{name},#{msg})
+	</insert>
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM foodreview
+		WHERE no=#{no}
+	</delete>
+	<update id="updateReview" parameterType="ReviewVO">
+		UPDATE foodreview SET
+		msg=#{msg}
+		WHERE no=#{no}
+	</update>
 </mapper>

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../css/cookie.css">
 <style type="text/css">
 .single-post .post-thumb img {
     width: 100%;
@@ -31,7 +32,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.1s">
                         <!-- Post Thumb -->
                         <div class="post-thumb">
-                        	<a href="../food/detail.do?no=${vo.no }">
+                        	<a href="../food/detail_before.do?no=${vo.no }">
                             <img src="${vo.poster }" alt="">
                             </a>
                         </div>
@@ -68,7 +69,7 @@
                     </div>
                 </div>
                 </c:forEach>
-
+				
                 <div class="col-12">
                     <div class="pagination-area d-sm-flex mt-15">
                         <nav aria-label="#">
@@ -95,6 +96,23 @@
                 </div>
 
             </div>
+            	<div class="row" style="margin-top: 20px">
+            		<div class="recent-container">
+            			<h3>최근 방문 맛집</h3>
+            			<div class="recent-list">
+            				<c:forEach var="vo" items="${cList }">
+            					<a href="../food/detail.do?no=${vo.no }" class="recent-card">
+            						<div class="thumb">
+            							<img src="${vo.poster }">
+            						</div>
+            						<div class="meta">
+            							<div class="title">${vo.name }</div>
+            						</div>
+            					</a>
+            				</c:forEach>
+            			</div>
+            		</div>
+            	</div>
         </div>
     </section>
 </body>

@@ -21,7 +21,11 @@ public class FoodServiceImpl implements FoodService {
 	public FoodVO foodDetailData(int no) {
 		dao.foodHitIncrement(no);
 		return dao.foodDetailData(no);
-		
+	}
+
+	@Override
+	public FoodVO foodCookieData(int no) {
+		return dao.foodDetailData(no);
 	}
 
 }
