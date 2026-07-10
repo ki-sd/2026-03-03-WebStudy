@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sist.dao.FoodDAO;
 import com.sist.vo.FoodVO;
@@ -26,6 +27,16 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	public FoodVO foodCookieData(int no) {
 		return dao.foodDetailData(no);
+	}
+
+	@Override
+	public List<FoodVO> foodFindListData(Map map) {
+		return dao.foodFindListData(map);
+	}
+
+	@Override
+	public int foodFindTotalPage(Map map) {
+		return dao.foodFindTotalPage(map);
 	}
 
 }

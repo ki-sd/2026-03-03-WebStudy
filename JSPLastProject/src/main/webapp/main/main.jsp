@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=chrome">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>JSP Semi-Project (Model2-MVC)</title>
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="icon" href="../img/core-img/favicon.ico">
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/responsive/responsive.css" rel="stylesheet">

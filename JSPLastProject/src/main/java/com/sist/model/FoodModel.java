@@ -1,5 +1,6 @@
 package com.sist.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.service.FoodService;
@@ -11,6 +12,8 @@ import com.sist.vo.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.PrintWriter;
 import java.util.*;
 @Controller
 public class FoodModel {
@@ -101,15 +104,45 @@ public class FoodModel {
 		request.setAttribute("main_jsp", "../food/food_main.jsp");
 		return "../main/main.jsp";
 	}
+	/*
+	 *   
+	 */
 	@RequestMapping("food/find_vue.do")
-	public String food_find_vue(HttpServletRequest request,HttpServletResponse response) {
+	public void food_find_vue(HttpServletRequest request,HttpServletResponse response) {
 		String page=request.getParameter("page");
 		String column=request.getParameter("column");
 		String fd=request.getParameter("fd");
 		int curpage=Integer.parseInt(page);
 		final int ROWSIZE=12;
 		int start=(curpage*ROWSIZE)-ROWSIZE;
+		Map<String,Object> map=new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("column", column);
+		map.put("fd", fd);
+		List<FoodVO> list=service.foodFindListData(map);
+		int totalpage=service.foodFindTotalPage(map);
 		
-		return "../main/main.jsp";
+		final int BLOCK=10;
+		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+		int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage)
+			endPage=totalpage;
+		
+		try {
+			map=new HashMap<String, Object>();
+			map.put("list", list);
+			map.put("curpage", curpage);
+			map.put("totalpage", totalpage);
+			map.put("startPage", startPage);
+			map.put("endPage", endPage);
+			
+			ObjectMapper mapper=new ObjectMapper();
+			String json=mapper.writeValueAsString(map);
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out=response.getWriter();
+			out.write(json);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 }

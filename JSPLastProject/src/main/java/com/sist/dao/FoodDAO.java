@@ -70,4 +70,28 @@ public class FoodDAO {
 		}
 		return vo;
 	}
+//	<select id="foodFindListData" resultType="FoodVO" parameterType="hashmap">
+//		SELECT no,name,poster,type,phone,likecount,replycount
+//		FROM food
+//		WHERE ${column} LIKE '%'||#{fd}||'%'
+//		ORDER BY no
+//		OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+//	</select>
+	public List<FoodVO> foodFindListData(Map map){
+		SqlSession session=ssf.openSession();
+		List<FoodVO> list=session.selectList("foodFindListData",map);
+		session.close();
+		return list;
+	}
+//	<select id="foodFindTotalPage" resultType="int" parameterType="hashmap">
+//		SELECT CEIL(COUNT(*)/12.0)
+//		FROM food
+//		WHERE ${column} LIKE '%'||#{fd}||'%'
+//	</select>
+	public int foodFindTotalPage(Map map) {
+		SqlSession session=ssf.openSession();
+		int total=session.selectOne("foodFindTotalPage",map);
+		session.close();
+		return total;
+	}
 }
