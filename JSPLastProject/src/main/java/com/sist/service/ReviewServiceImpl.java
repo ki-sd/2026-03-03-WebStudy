@@ -28,4 +28,9 @@ public class ReviewServiceImpl implements ReviewService {
 		dao.updateReview(vo);
 	}
 
+	@Override
+	public void updateReviewCount(int fno) {
+		dao.updateReviewCount(fno);
+	}
+
 }

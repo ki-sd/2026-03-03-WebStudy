@@ -35,6 +35,7 @@ public class MemberServiceImpl implements MemberService {
 				vo.setPost(dbVO.getPost());
 				vo.setEmail(dbVO.getEmail());
 				vo.setAdmin(dbVO.getAdmin());
+				vo.setDbday(dbVO.getDbday());
 			}else {
 				vo.setMsg("NOPWD");
 			}

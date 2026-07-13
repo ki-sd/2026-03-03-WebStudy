@@ -5,6 +5,8 @@ import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.service.FoodService;
 import com.sist.service.FoodServiceImpl;
+import com.sist.service.LikeService;
+import com.sist.service.LikeServiceImpl;
 import com.sist.service.ReviewService;
 import com.sist.service.ReviewServiceImpl;
 import com.sist.vo.*;
@@ -12,6 +14,7 @@ import com.sist.vo.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.PrintWriter;
 import java.util.*;
@@ -19,6 +22,7 @@ import java.util.*;
 public class FoodModel {
 	private FoodService service=new FoodServiceImpl();
 	private ReviewService Rservice=new ReviewServiceImpl();
+	private LikeService lService=new LikeServiceImpl();
 	@RequestMapping("food/food_main.do")
 	public String food_main(HttpServletRequest request,HttpServletResponse response) {
 		String page=request.getParameter("page");
@@ -28,6 +32,10 @@ public class FoodModel {
 		final int ROWSIZE=12;
 		int start=(curpage*ROWSIZE)-ROWSIZE;
 		List<FoodVO> list=service.foodListData(start);
+//		for(FoodVO vo:list) {
+//			lService.foodLikeUpdate(vo.getNo());
+//			Rservice.updateReviewCount(vo.getNo());
+//		}
 		int totalpage=service.foodTotalPage();
 		
 		final int BLOCK=10;
@@ -96,6 +104,17 @@ public class FoodModel {
 		int rCount=list.size();
 		request.setAttribute("rCount", rCount);
 		
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		if(id!=null) {
+			int count=lService.likeCount(no);
+			LikeVO lvo=new LikeVO();
+			lvo.setFno(no);
+			lvo.setId(id);
+			int check=lService.likeCheck(lvo);
+			request.setAttribute("count", count);
+			request.setAttribute("check", check);
+		}
 		return "../main/main.jsp";
 	}
 	@RequestMapping("food/find.do")

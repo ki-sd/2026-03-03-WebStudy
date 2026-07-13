@@ -20,4 +20,11 @@
 		msg=#{msg}
 		WHERE no=#{no}
 	</update>
+	<update id="updateReviewCount" parameterType="int">
+		UPDATE food SET
+		replycount=(SELECT COUNT(*)
+					FROM foodreview
+					WHERE fno=#{fno})
+		WHERE no=#{fno}
+	</update>
 </mapper>

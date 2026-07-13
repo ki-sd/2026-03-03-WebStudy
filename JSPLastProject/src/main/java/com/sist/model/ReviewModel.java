@@ -27,6 +27,7 @@ public class ReviewModel {
 		vo.setName(name);
 		vo.setMsg(msg);
 		service.insertReview(vo);
+		service.updateReviewCount(Integer.parseInt(fno));
 		return "redirect:../food/detail.do?no="+fno;
 	}
 	@RequestMapping("review/delete.do")
@@ -34,6 +35,7 @@ public class ReviewModel {
 		String no=request.getParameter("no");
 		String fno=request.getParameter("fno");
 		service.deleteReview(Integer.parseInt(no));
+		service.updateReviewCount(Integer.parseInt(fno));
 		return "redirect:../food/detail.do?no="+fno;
 	}
 	@RequestMapping("review/update.do")

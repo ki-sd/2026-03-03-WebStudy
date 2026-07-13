@@ -9,4 +9,5 @@ public interface ReviewService {
 	public void insertReview(ReviewVO vo);
 	public void deleteReview(int fno);
 	public void updateReview(ReviewVO vo);
+	public void updateReviewCount(int fno);
 }

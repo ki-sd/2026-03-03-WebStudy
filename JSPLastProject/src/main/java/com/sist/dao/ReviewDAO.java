@@ -53,4 +53,17 @@ public class ReviewDAO {
 		session.commit();
 		session.close();
 	}
+//	<update id="updateReviewCount" parameterType="int">
+//		UPDATE food SET
+//		replycount=(SELECT COUNT(*)
+//					FROM foodreview
+//					WHERE fno=#{fno})
+//		WHERE no=#{fno}
+//	</update>
+	public void updateReviewCount(int fno) {
+		SqlSession session=ssf.openSession();
+		session.update("updateReviewCount",fno);
+		session.commit();
+		session.close();
+	}
 }

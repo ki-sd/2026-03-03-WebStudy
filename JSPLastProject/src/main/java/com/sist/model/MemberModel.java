@@ -67,6 +67,7 @@ public class MemberModel {
 			session.setAttribute("address", vo.getAddr1()+" "+vo.getAddr2());
 			session.setAttribute("phone", vo.getPhone());
 			session.setAttribute("admin", vo.getAdmin());
+			session.setAttribute("day", vo.getDbday());
 		}
 		try {
 			response.setContentType("text/html;charset=UTF-8");
