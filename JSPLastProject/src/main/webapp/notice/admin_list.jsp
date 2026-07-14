@@ -22,18 +22,23 @@
 			<table>
 				<tr>
 					<th width="10%" class="text-center">번호</th>
-					<th width="45%" class="text-center">제목</th>
-					<th width="15%" class="text-center">작성자</th>
-					<th width="20%" class="text-center">작성일</th>
+					<th width="40%" class="text-center">제목</th>
+					<th width="10%" class="text-center">작성자</th>
+					<th width="15%" class="text-center">작성일</th>
 					<th width="10%" class="text-center">조회수</th>
+					<th width="15%" class="text-center"></th>
 				</tr>
 				<c:forEach var="vo" items="${nList }">
 					<tr>
 						<td width="10%" class="text-center">${vo.no }</td>
-						<td width="45%"><a href="" style="text-decoration: none;color: black">${vo.subject }</a></td>
-						<td width="15%" class="text-center">${vo.name }</td>
-						<td width="20%" class="text-center">${vo.dbday }</td>
+						<td width="40%"><a href="" style="text-decoration: none;color: black">${vo.subject }</a></td>
+						<td width="10%" class="text-center">${vo.name }</td>
+						<td width="15%" class="text-center">${vo.dbday }</td>
 						<td width="10%" class="text-center">${vo.hit }</td>
+						<td width="15%" class="text-center">
+							<a href="../notice/update.do?no=${vo.no }" class="btn btn-sm btn-info">수정</a>
+							<a href="../notice/delete.do?no=${vo.no }" class="btn btn-sm btn-warning">삭제</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

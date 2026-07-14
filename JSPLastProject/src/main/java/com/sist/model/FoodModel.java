@@ -5,6 +5,8 @@ import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.service.FoodService;
 import com.sist.service.FoodServiceImpl;
+import com.sist.service.JjimService;
+import com.sist.service.JjimServiceImpl;
 import com.sist.service.LikeService;
 import com.sist.service.LikeServiceImpl;
 import com.sist.service.ReviewService;
@@ -21,8 +23,9 @@ import java.util.*;
 @Controller
 public class FoodModel {
 	private FoodService service=new FoodServiceImpl();
-	private ReviewService Rservice=new ReviewServiceImpl();
+	private ReviewService rService=new ReviewServiceImpl();
 	private LikeService lService=new LikeServiceImpl();
+	private JjimService jService=new JjimServiceImpl();
 	@RequestMapping("food/food_main.do")
 	public String food_main(HttpServletRequest request,HttpServletResponse response) {
 		String page=request.getParameter("page");
@@ -99,7 +102,7 @@ public class FoodModel {
 		request.setAttribute("food_jsp", "../food/detail.jsp");
 		request.setAttribute("main_jsp", "../food/food_main.jsp");
 		
-		List<ReviewVO> list=Rservice.reviewListData(no);
+		List<ReviewVO> list=rService.reviewListData(no);
 		request.setAttribute("reList", list);
 		int rCount=list.size();
 		request.setAttribute("rCount", rCount);
@@ -114,6 +117,12 @@ public class FoodModel {
 			int check=lService.likeCheck(lvo);
 			request.setAttribute("count", count);
 			request.setAttribute("check", check);
+			
+			JjimVO jvo=new JjimVO();
+			jvo.setId(id);
+			jvo.setFno(no);
+			int jCount=jService.jjimCount(jvo);
+			request.setAttribute("jCount", jCount);
 		}
 		return "../main/main.jsp";
 	}

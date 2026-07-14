@@ -155,7 +155,12 @@ $((e)=>{
 										</button>
 									</c:if>
 										<span class="count">${count }</span>
-			            				<button class="btn-xs btn-info">찜하기</button>
+									<c:if test="${jCount==0 }">
+			            				<a href="../jjim/jjim_insert.do?fno=${vo.no}" class="btn btn-xs btn-info">찜하기</a>
+			            			</c:if>
+			            			<c:if test="${jCount!=0 }">
+			            				<span class="btn btn-xs btn-outline-info">찜완료</span>
+			            			</c:if>
 				            				<c:if test="${vo.reserve!='불가' }">
 				            					<button class="btn-xs btn-success">예약</button>
 				            				</c:if>

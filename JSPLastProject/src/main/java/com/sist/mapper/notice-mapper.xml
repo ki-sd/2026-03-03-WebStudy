@@ -15,4 +15,23 @@
 		INSERT INTO notice(no,type,subject,content)
 		VALUES(notice_no_seq.nextVal,#{type},#{subject},#{content})
 	</insert>
+	<delete id="noticeDelete" parameterType="int">
+		DELETE FROM notice
+		WHERE no=#{no}
+	</delete>
+	<update id="noticeUpdateData" parameterType="NoticeVO">
+		UPDATE notice SET
+		type=#{type},subject=#{subject},content=#{content}
+		WHERE no=#{no}
+	</update>
+	<select id="noticeDetailData" resultType="NoticeVO" parameterType="int">
+		SELECT no,type,name,subject,content,TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') AS dbday, hit
+		FROM notice
+		WHERE no=#{no}
+	</select>
+	<update id="noticeHitIncrement" parameterType="int">
+		UPDATE notice SET
+		hit=hit+1
+		WHERE no=#{no}
+	</update>
 </mapper>

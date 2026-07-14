@@ -19,5 +19,22 @@ public class NoticeServiceImpl implements NoticeService {
 	public int noticeTotalPage() {
 		return dao.noticeTotalPage();
 	}
+	@Override
+	public void noticeDelete(int no) {
+		dao.noticeDelete(no);
+	}
+	@Override
+	public NoticeVO noticeDetailData(int no) {
+		dao.noticeHitIncrement(no);
+		return dao.noticeDetailData(no);
+	}
+	@Override
+	public NoticeVO noticeUpdateDetail(int no) {
+		return dao.noticeDetailData(no);
+	}
+	@Override
+	public void noticeUpdateData(NoticeVO vo) {
+		dao.noticeUpdateData(vo);
+	}
 
 }

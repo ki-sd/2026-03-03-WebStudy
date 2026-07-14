@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.admin-mapper">
+	<select id="memberListData" resultType="MemberVO" parameterType="int">
+		SELECT id,name,sex,phone,addr1,addr2,grade
+		FROM member1
+		WHERE admin!='y'
+		ORDER BY regdate DESC
+		OFFSET #{start} ROWS FETCH NEXT 10 ROWS ONLY
+	</select>
+	<select id="memberTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/10.0)
+		FROM member1
+		WHERE admin!='y'
+	</select>
+	<update id="memberUpdate" parameterType="MemberVO">
+		UPDATE member1 SET
+		grade=#{grade}
+		WHERE id=#{id}
+	</update>
+</mapper>

@@ -2,6 +2,7 @@ package com.sist.model;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
+import com.sist.dao.NoticeDAO;
 import com.sist.service.NoticeService;
 import com.sist.service.NoticeServiceImpl;
 import com.sist.vo.NoticeVO;
@@ -60,6 +61,42 @@ public class NoticeModel {
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("main_jsp", "../notice/user_list.jsp");
+		return "../main/main.jsp";
+	}
+	@RequestMapping("notice/delete.do")
+	public String notice_delete(HttpServletRequest request,HttpServletResponse response) {
+		String no=request.getParameter("no");
+		service.noticeDelete(Integer.parseInt(no));
+		return "redirect:../adminpage/list.do";
+	}
+	@RequestMapping("notice/update.do")
+	public String notice_update(HttpServletRequest request,HttpServletResponse response) {
+		String no=request.getParameter("no");
+		NoticeVO vo=service.noticeUpdateDetail(Integer.parseInt(no));
+		request.setAttribute("vo", vo);
+		request.setAttribute("admin_jsp", "../notice/update.jsp");
+		return "../adminpage/admin_main.jsp";
+	}
+	@RequestMapping("notice/update_ok.do")
+	public String notice_update_ok(HttpServletRequest request,HttpServletResponse response) {
+		String no=request.getParameter("no");
+		String type=request.getParameter("type");
+		String subject=request.getParameter("subject");
+		String content=request.getParameter("content");
+		NoticeVO vo=new NoticeVO();
+		vo.setNo(Integer.parseInt(no));
+		vo.setType(Integer.parseInt(type));
+		vo.setSubject(subject);
+		vo.setContent(content);
+		service.noticeUpdateData(vo);
+		return "redirect:../adminpage/list.do";
+	}
+	@RequestMapping("notice/detail.do")
+	public String notice_detail(HttpServletRequest request,HttpServletResponse response) {
+		String no=request.getParameter("no");
+		NoticeVO vo=service.noticeDetailData(Integer.parseInt(no));
+		request.setAttribute("vo", vo);
+		request.setAttribute("main_jsp", "../notice/user_detail.jsp");
 		return "../main/main.jsp";
 	}
 }
