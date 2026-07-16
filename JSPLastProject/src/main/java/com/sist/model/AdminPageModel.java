@@ -1,11 +1,12 @@
 package com.sist.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
+import com.sist.dao.AdminDAO;
+import com.sist.dao.ReserveDAO;
 import com.sist.service.AdminService;
 import com.sist.service.AdminServiceImpl;
-import com.sist.vo.MemberVO;
+import com.sist.vo.*;
 
 import java.io.PrintWriter;
 import java.util.*;
@@ -52,4 +53,21 @@ public class AdminPageModel {
 			ex.printStackTrace();
 		}
 	}
+	@RequestMapping("adminpage/admin_reserve.do")
+	  public String admin_reserve(HttpServletRequest request,
+			   HttpServletResponse response)
+	  {
+		  List<ReserveVO> list=ReserveDAO.reserveAdminPageListData();
+		  request.setAttribute("list", list);
+		  request.setAttribute("admin_jsp", "../adminpage/admin_reserve.jsp");
+		  return "../adminpage/admin_main.jsp";
+	  }
+	  @RequestMapping("adminpage/reserve_ok.do")
+	  public String admin_reserve_ok(HttpServletRequest request,
+			   HttpServletResponse response)
+	  {
+		  String rno=request.getParameter("rno");
+		  AdminDAO.reserveAdminOk(Integer.parseInt(rno));
+		  return "redirect:../adminpage/admin_reserve.do";
+	  }
 }
