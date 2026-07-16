@@ -11,6 +11,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-4.0.0.min.js"></script>
 <script type="text/javascript">
 $((e)=>{
+	let c=0
 	let bCheck=false
 	$('.btns').on('click',(e)=>{
 		let no=$(e.currentTarget).attr('data-no')
@@ -49,6 +50,37 @@ $((e)=>{
 		let no=$(this).attr("data-no")
 		location.href="../like/likeOff.do?fno="+no
 	})
+	$('#reBtn').on('click',(e)=>{
+		if(c===0){
+			$(e.currentTarget).text("닫기")
+			$('#recommendArea').show()
+			c=1
+			$.ajax({
+				method:'post',
+				url:'../recommend/recommend.do',
+				success:(result)=>{
+					let html=''
+					// for(let a of json)
+					// json.map / json.forEach
+					result.map((food)=>{
+						html+='<div class="recommend-card">'
+							+'<a href="../food/detail.do?no='+food.no+'">'
+							+'<img src="'+food.poster+'" title="'+food.type+'">'
+							+'<div class="recommend-title">'
+							+food.name
+							+'</div>'
+							+'</a>'
+							+'</div>'
+					})
+					$('#recommendArea').html(html)
+				}
+			})
+		}else{
+			$(e.currentTarget).text("추천")
+			$('#recommendArea').hide()
+			c=0
+		}
+	})
 })
 </script>
 <style type="text/css">
@@ -84,6 +116,57 @@ $((e)=>{
 
 .count {
   font-weight: 600;
+}
+
+/* 추천 영역 */
+#recommendArea{
+    margin-top:30px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    justify-content:space-between;
+}
+
+/* 추천 카드 */
+.recommend-card{
+    width:calc((100% - 60px) / 5);
+    max-width:160px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    overflow:hidden;
+    background:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+    transition:0.3s;
+    cursor:pointer;
+}
+
+/* 마우스 올렸을 때 */
+.recommend-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+/* 이미지 */
+.recommend-card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    /* display:block; */
+}
+
+/* 음식 이름 */
+.recommend-title{
+    padding:8px;
+    text-align:center;
+    font-size:13px;
+    font-weight:bold;
+    color:#333;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.recommend-card a{
+	text-decoration: none
 }
 </style>
 </head>
@@ -165,11 +248,16 @@ $((e)=>{
 				            					<button class="btn-xs btn-success">예약</button>
 				            				</c:if>
 				            		</c:if>
-				            		<button class="btn-xs btn-primary">추천</button>
+				            		<c:if test="${sessionScope.id!=null }">
+				            			<button class="btn-xs btn-primary" id="reBtn">추천</button>
+				            		</c:if>
 			            			<button class="btn-xs btn-warning" onclick="location.href='../food/food_main.do'">목록</button>
 		            			</td>
 		            		</tr>
 		            	</table>
+		            	<div id="recommendArea" style="display: none">
+		            		
+		            	</div>
 		            	<div class="col-12 col-sm-12">
 			            	<div class="related-post-area section_padding_50">
 			                    <div class="related-post-slider owl-carousel">
